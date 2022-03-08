@@ -1,0 +1,77 @@
+<article class="container container-fluid">
+  <section class="create" *ngIf="isCreate">
+    <h1>Create Document</h1>
+    <form #form="ngForm" novalidate>
+      <div class="form-group">
+        <label for="documentTitle">Document Title</label>
+        <input [(ngModel)]="documentTitle" #TextField="ngModel" type="text"  class="form-control" id="documentTitle" name="documentTitle" placeholder="Enter your name"  required>
+        <!-- <div *ngIf="documentTitle.errors&& (documentTitle.dirty||documentTitle.touched)">
+          <p *ngIf="documentTitle.errors['required']">
+            * Document Title is Requird
+          </p>
+</div> -->
+  <!-- <div *ngIf="TextField.invalid && showValid">
+        <p *ngIf="TextField.errors.['required']">Please text Field Requird</p>
+      </div> -->
+      </div>
+    <div class="form-group">
+        <label for="documentDesciption">Document Desciption</label>
+        <input  type="text" required class="form-control" id="documentDesciption" name="documentDesciption" placeholder="Enter your address" [(ngModel)]="documentDesciption">
+        <!-- <div *ngIf="documentDesciption.errors&& (documentDesciption.dirty||documentDesciption.touched)">
+          <p *ngIf="documentDesciption.errors['required']">
+            * Document Desciption is Requird
+          </p>
+     </div> -->
+    </div>
+      <div class="form-group">
+        <label for="creatationDate">Creatation Date</label>
+        <input  type="date" required class="form-control" id="creatationDate" name="creatationDate" placeholder="Enter your address" [(ngModel)]="creatationDate">
+        <!-- <div *ngIf="creatationDate.errors&& (creatationDate.dirty||creatationDate.touched)">
+          <p *ngIf="creatationDate.errors['required']">
+            * Creatation Date is Requird
+          </p>
+          </div> -->
+      </div>
+      <app-upload required  (onUploadFinished)="uploadFinished($event)"></app-upload>
+      <div class="row">
+        <div class="offset-md-5 col-md-2">
+          <button [disabled]="form.invalid" type="button" class="btn btn-primary" (click)="OnCreate()">Create </button>
+        </div>
+      </div>
+    
+    </form>
+  </section>
+
+  <section class="Documents" *ngIf="!isCreate">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Document Title</th>
+          <th scope="col">Document Desciption</th>
+          <th scope="col">Document URL</th>
+          <th scope="col">Creatation Date</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let Document of Documents">
+          
+            <!-- <img [src]="createImgPath(user.imgPath)" alt="profile picture" style="width:60px; height:60px;"> -->
+          <!-- <button (click)="createImgPath(user.baseUrl)" >{{user.imgPath}}</button>
+          <div id="app"></div> -->
+          <td>{{Document.documentTitle}}</td>
+          <td>{{Document.documentDesciption}}</td>
+          <td>  <a [href]="createImgPath(Document.documentURL)" target="_balnk" ><b>{{Document.fileName}}</b></a><br />
+            
+          </td>
+          <td>{{Document.creatationDate}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="offset-md-10 col-md-2">
+        <button type="button" class="btn btn-primary" (click)="returnToCreate()">New Document</button>
+      </div>
+    </div>
+  </section>
+</article>
